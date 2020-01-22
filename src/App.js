@@ -1,23 +1,7 @@
 import React from 'react';
 import './style.css';
-
-//The Pokemon component will show an individual Pokemon monster
-// It shows an image of the Pokemon and
-// shows the name of it as well.
-class Pokemon extends React.Component{
-  render(){
-    const pokemon= this.props.pokemon;
-    return <div className="pokemon--species">
-            <div className="pokemon--species--container">
-              <div className="pokemon--species--sprite">
-                <img src={process.env.PUBLIC_URL + `/sprites/${pokemon.id}.png`} />
-              </div>
-              <div className="pokemon--species--name"> {pokemon.name} </div>
-            </div>
-          </div>;
-    }
-}
-
+import Pokemon from './Pokemon';
+import PokemonList from './PokemonList';
 
 class App extends React.Component {
   constructor(props){
@@ -38,12 +22,9 @@ class App extends React.Component {
         .then(res => res.json())
         .then(data => {
           if (data){
-            console.log("data in getPokemonInfo");
-            console.log(data);
             if (data.results){
               this.setState({data: data});
 
-              console.log('data.results in getPokemonInfo!!!!!!');
               data.results.map((result, i)=>{
                 console.log('result: ');
                 console.log(result);
@@ -53,11 +34,9 @@ class App extends React.Component {
               })
             }
             if (data.sprites){
-              console.log("sprites in getPokemonInfo");
               let pokemonList = [data];
               let oldData = this.state.data;
               if (oldData){
-                console.log("oldData", oldData);
                 if (oldData.results) this.setState({data: data});
                 else if (oldData.name) this.setState({data: pokemonList});
                 else {
@@ -71,31 +50,33 @@ class App extends React.Component {
           }
         })
         .catch(console.log);
-     console.log("info");
-     console.log(info);
      return info
   }
 
   render(){
-    let data = this.state.data;
-
-    if(data && this.props.page === 'pokemon/'){
-      if(this.props.id && data.sprites){
-        console.log("data in render");
-        console.log(data);
-        return <Pokemon pokemon={data} />;
-      }
-      if(data.length){
-        console.log('data.results!!!!!! in render', data);
-        let results = data.map((pokemon, i)=>{
-          console.log('pokemon in render: ');
-          console.log(pokemon);
-          return <Pokemon pokemon={pokemon} />;
-        })
-        return results
-      }
-    }
-    return null
+    // let data = this.state.data;
+    //
+    // if(data && this.props.page === 'pokemon/'){
+    //   if(this.props.id && data.sprites){
+    //     console.log("data in render");
+    //     console.log(data);
+    //     return <Pokemon pokemon={data} />;
+    //   }
+    //   if(data.length){
+    //     console.log('data.results!!!!!! in render', data);
+    //     let results = data.map((pokemon, i)=>{
+    //       console.log('pokemon in render: ');
+    //       console.log(pokemon);
+    //       return <Pokemon pokemon={pokemon} />;
+    //     })
+    //     return results
+    //   }
+    // }
+    // return null
+    return <div className="pokeapp">
+           <h1> The Kanto PokeDex! </h1>
+            <PokemonList/>
+           </div>;
   }
 }
 
