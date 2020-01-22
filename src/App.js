@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
     this.getPokemonInfo = this.getPokemonInfo.bind(this);
     this.state = {data: null, pokemon: null};
-    this.endpoint = 'https://pokeapi.co/api/v2/' + this.props.page;
+    this.endpoint = 'https://pokeapi.co/api/v2/pokemon/';
     if (this.props.id) this.endpoint += this.props.id;
   }
 
