@@ -18,15 +18,24 @@ class BerryList extends React.Component{
     this.setState({
       loading : true
     });
-    fetch('http://pokeapi.co/api/v2/berry').then(res=>res.json())
+    fetch('http://pokeapi.co/api/v2/berry/?limit=64').then(res=>res.json())
     .then(response=>{
-      console.log("response",response);
-      this.setState({
-        berries : response.results,
-        loading : true,
-        fetched : true
-      });
+      let results = response.results;
+      results.map(berry => this.getBerry(berry.url))
     });
+  }
+
+  // receives the url for requesting the Poke API the current berry's details
+  // and set the berry as the response
+  getBerry(url){
+    fetch(url)
+    .then(res=>res.json())
+    .then(response=>{
+      this.setState({
+        berries: this.state.berries.concat(response), fetched : true
+      });
+    })
+    .catch(err => console.log(err));
   }
 
   render(){
@@ -37,11 +46,22 @@ class BerryList extends React.Component{
         <div className="pokemon-list">
           {berries.map(
             (berry,index)=>
-              <Link to={"/berry/"+(index+1)}
-              key={berry.name}
-              onClick={() => this.props.handleClick(index + 1, berry)}>
-                <Berry id={index+1} berry={berry}/>
-              </Link>
+            {
+              let selectedFlavor = this.props.selectedFlavor;
+              if (selectedFlavor === null ||
+                 ( (selectedFlavor != null) &&
+                   (berry.flavors[selectedFlavor].potency > 0) )
+                 ){
+
+                return (
+                <Link to={"/berry/"+(index+1)}
+                key={berry.name}
+                onClick={() => this.props.handleClick(index + 1, berry)}>
+                  <Berry id={index+1} berry={berry}/>
+                </Link>)
+              }
+              else return null
+            }
           )}
         </div>);
     }else if(loading && !fetched){

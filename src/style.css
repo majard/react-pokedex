@@ -92,6 +92,10 @@ HTML, body{
   box-shadow: 0 14px 45px rgba(0, 0, 0, 0.22), 0 18px 45px rgba(0, 0, 0, 0.22);
 }
 
+.menu {
+  display: flex;
+  flex-direction: column;
+}
 @media screen and (max-width:1200px) {
   .App{
     flex-direction: column;
@@ -113,7 +117,7 @@ HTML, body{
   .detail-view{
     width: auto;
   }
-  .pokemon-evolutions{    
+  .pokemon-evolutions{
     display: flex;
   }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Berry from './Berry';
-import {Link} from 'react-router-dom'
 
 
 //The Berry component will show an individual Berry
@@ -14,6 +13,7 @@ class BerryDetails extends React.Component{
       fetched : false,
       berry: this.props.berry,
       flavors: [],
+      selectedFlavor: null,
       //id: this.props.id || this.props.match.params.id,
     };
   }
@@ -31,7 +31,6 @@ class BerryDetails extends React.Component{
     .then(res=>res.json())
     .then(response=>{
       this.setState({berry: response, fetched : true});
-      console.log("getberry!!: ", response);
       this.getflavors(response);
     })
     .catch(err => console.log(err));
@@ -41,11 +40,10 @@ class BerryDetails extends React.Component{
     let flavors = berry.flavors;
     if (!flavors) return
     for (let i = 0; i<flavors.length; i++){
+      let flavor = flavors[i];
       this.setState({
-              flavors:
-              this.state.flavors
-              .concat(flavors[i].flavor.name)});
-      console.log(this.state.flavors);
+              flavors:  this.state.flavors
+              .concat(flavor)});
     }
   }
 
@@ -57,8 +55,11 @@ class BerryDetails extends React.Component{
               <Berry id={this.props.id}
                        berry={berry}
                        isDetail={true}/>
-              <p> Possible flavors: </p>
-              {flavors.map( (flavor)=> flavor + " " )}
+              {flavors.map(
+                (flavor)=>
+                flavor.flavor.name +
+                ": " +
+                flavor.potency + "\n" )}
            </div>
          )
           : <div> loading... </div>;
