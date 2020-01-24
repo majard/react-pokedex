@@ -3,27 +3,117 @@ HTML, body{
   background: #e2e1e0;
     text-align : center;
 }
-.pokeapp{
-    padding : 16px;
-}
-.pokemon--species--list{
-    display : -webkit-box;
-    display : -ms-flexbox;
-    display : flex;
-    -ms-flex-wrap : wrap;
-        flex-wrap : wrap;
-    padding : 16px 0;
-}
-.pokemon--species{
-    -ms-flex-preferred-size : 25%;
-        flex-basis : 25%;
-    padding : 8px;
-    box-sizing: border-box;
 
+.pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  height: 80%;
+  padding: 10px;
+  background-color: #BFF9FF;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: scroll;
 }
-.pokemon--species--container{
-    padding : 8px;
-    background : white;
-    cursor : pointer;
- box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+.poke-cell {
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+  background-color: #FFF;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+}
+.evolutions-container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.pokemon-evolutions{
+  overflow: scroll;
+  height: 90%;
+}
+.detail-view {
+  width: 30%;
+  height: 100%;
+  padding: 10px;
+  background-color: #df095e;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sprite-image {
+  height: 222px;
+  margin: 10px auto;
+  background-color: #585858;
+  border: 15px solid #DEDEDE;
+  border-radius: 5px;
+  color: #585858;
+}
+.details-wrapper{
+  height: 100%;
+  width: 50%;
+  display: contents;
+}
+.data-wrapper {
+  width: 80%;
+  padding: 10px;
+  margin: 0 auto;
+  background-color: #585858;
+  border-radius: 5px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.22);
+  color: #FFF;
+}
+.pokemon-name {
+  display: inline-block;
+}
+.data-name {
+  margin: 0 0 5px;
+}
+
+.data-char {
+  font-size: 10px;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  width: 70vw;
+  height: 80vh;
+  padding-left: 10px;
+  margin: 50px auto;
+  background-color: #FE0065;
+  border-radius: 10px;
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.22), 0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+@media screen and (max-width:1200px) {
+  .App{
+    flex-direction: column;
+    width: 90vw;
+    overflow: scroll;
+  }
+  .pokemon-list{
+    flex: 1 0 40vh;
+    width: 80vw;
+  }
+  .details-wrapper{
+    height: 50%;
+    width: 80vw;
+    flex: 1 0 90%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .detail-view{
+    width: auto;
+  }
+  .pokemon-evolutions{    
+    display: flex;
+  }
 }

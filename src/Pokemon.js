@@ -4,34 +4,25 @@ import React from 'react';
 // It shows an image of the Pokemon and
 // shows the name of it as well.
 class Pokemon extends React.Component{
-  constructor(props){
-    super(props);
-
-  }
-  componentWillMount(){
-    this.setState({
-      loading : true
-    });
-    fetch('http://pokeapi.co/api/v2/pokemon?limit=151').then(res=>res.json())
-    .then(response=>{
-      this.setState({
-        species : response.results,
-        loading : true,
-        fetched : true
-      });
-    });
-  }
-
   render(){
     const pokemon= this.props.pokemon;
-    return <div className="pokemon--species">
-            <div className="pokemon--species--container">
-              <div className="pokemon--species--sprite">
-                <img src={process.env.PUBLIC_URL + `/sprites/${this.props.id}.png`} />
-              </div>
-              <div className="pokemon--species--name"> {pokemon.name} </div>
-            </div>
-          </div>;
+    const isDetail = this.props.isDetail;
+    return isDetail?
+          <section className="detail-view">
+            <img alt={pokemon.name}
+             className="sprite-image"
+             src={process.env.PUBLIC_URL +
+                 `/sprites/pokemon/${this.props.id}.png`} />
+            <div className="data-wrapper"> {pokemon.name} </div>
+          </section>
+          :
+          <section className="poke-cell">
+            <img alt={pokemon.name}
+             className="pokemon-sprite"
+             src={process.env.PUBLIC_URL +
+                 `/sprites/pokemon/${this.props.id}.png`} />
+            <div className="data-wrapper"> {pokemon.name} </div>
+          </section>;
     }
 }
 
